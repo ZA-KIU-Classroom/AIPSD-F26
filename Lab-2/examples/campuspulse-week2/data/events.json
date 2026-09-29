@@ -1,0 +1,8 @@
+[
+  {"id": "ev-101", "title": "Robotics Club open lab", "week": 39, "status": "confirmed", "start": "2026-09-22T17:00:00+04:00", "location": "Hall B, Building 2", "club": "KIU Robotics Club", "free": true},
+  {"id": "ev-102", "title": "Career fair prep session", "week": 39, "status": "confirmed", "start": "2026-09-25T14:00:00+04:00", "location": "Room 2.08", "club": "Career Center", "free": true},
+  {"id": "ev-103", "title": "Chess club blitz night", "week": 39, "status": "tentative", "start": "2026-09-25T19:00:00+04:00", "location": "Student lounge", "club": "Chess Club", "free": true},
+  {"id": "ev-104", "title": "Hiking trip to Okatse Canyon", "week": 39, "status": "cancelled", "start": "2026-09-26T08:00:00+04:00", "location": "Main gate", "club": "Outdoor Club", "free": false},
+  {"id": "ev-105", "title": "AI reading group", "week": 40, "status": "confirmed", "start": "2026-09-30T18:30:00+04:00", "location": "Library seminar room", "club": "AI Society", "free": true},
+  {"id": "ev-106", "title": "Film Society screening", "week": 40, "status": "confirmed", "start": "2026-10-02T20:00:00+04:00", "location": "Room 3.14", "club": "Film Society", "free": true}
+]
