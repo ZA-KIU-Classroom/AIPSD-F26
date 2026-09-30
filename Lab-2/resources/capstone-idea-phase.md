@@ -38,7 +38,7 @@ Write each one as a single line: *who* was doing it, *what* they were trying to 
 
 ## Step 2 · Sharpen: the model-job lens
 
-**Goal:** learn the one test that turns a seed into a CS6920 idea, so you can apply it in Step 3.
+**Goal:** learn the one test that turns a seed into an idea, so you can apply it in Step 3.
 **Time:** 5 minutes of reading.
 
 ### Three layers, two required
