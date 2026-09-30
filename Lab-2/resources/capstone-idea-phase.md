@@ -1,6 +1,6 @@
 # Choosing Your Capstone: From Zero Ideas to One Spec-Ready Idea
 
-**Lab 2 resource · CS6920 · Agentic Engineering**
+**Lab 2 resource · Agentic Engineering**
 
 ## Before you start
 
