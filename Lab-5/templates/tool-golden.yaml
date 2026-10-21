@@ -1,0 +1,53 @@
+# HW2 tool golden set · <tool name> · owner: <your-github-username>
+# Save as evals/tools/<your-github-username>.yaml. tests/test_tool_golden.py runs it in CI: no model, no key.
+#
+# Each case is one call, exactly as a model would send it:
+#   tool        the tool name in your registry
+#   caller      who is signed in for this call, or null for a visitor (identity comes from here, never the arguments)
+#   arguments   the JSON the model sends
+#   expect      ok       -> optional result_has: keys and values that must appear in the result
+#               refused  -> optional error_has: short phrases that must appear in the error the model reads
+#   why         one line: what this case protects
+#
+# Five cases at least: 3 normal (one of them may be an expected refusal, like "full" or "cancelled"),
+# 1 bad-input, 1 adversarial. Keep result_has and error_has short and exact.
+tool_owner: <your-github-username>
+cases:
+  - id: n1
+    type: normal
+    why: <the everyday case>
+    tool: <tool_name>
+    caller: null
+    arguments: {<arg>: <value>}
+    expect: ok
+    result_has: {<key>: <value>}
+  - id: n2
+    type: normal
+    why: <a second real case, different caller or different data>
+    tool: <tool_name>
+    caller: <test-user-id>
+    arguments: {<arg>: <value>}
+    expect: ok
+  - id: n3
+    type: normal
+    why: <a refusal the world causes: full, closed, not found; the message says what to do next>
+    tool: <tool_name>
+    caller: <test-user-id>
+    arguments: {<arg>: <value>}
+    expect: refused
+    error_has: [<phrase>]
+  - id: b1
+    type: bad-input
+    why: <wrong shape or out of range; never reaches your function>
+    tool: <tool_name>
+    caller: null
+    arguments: {<arg>: <bad value>}
+    expect: refused
+    error_has: [invalid arguments, <field name>]
+  - id: a1
+    type: adversarial
+    why: <what an attacker or a confused model tries, and why the contract stops it>
+    tool: <tool_name>
+    caller: <test-user-id>
+    arguments: {<arg>: <value>, <field that must not exist>: <value>}
+    expect: refused

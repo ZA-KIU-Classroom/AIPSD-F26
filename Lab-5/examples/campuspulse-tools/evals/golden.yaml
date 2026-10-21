@@ -1,0 +1,51 @@
+# CampusPulse golden set v1 · Week 4 · five questions
+# Composition for Week 4: 2 factual, 1 reasoning, 1 edge case, 1 refusal.
+# Week 11 grows this to 10 (3 factual, 2 reasoning, 2 edge, 2 refusal, 1 format).
+#
+# expect        answered | refused
+# must_cite     doc ids (path under data/corpus, no .md) that MUST be among the cited sources
+# must_mention  phrases that MUST appear in the answer (case-insensitive). Keep them few and exact.
+# why           one line: what this question protects. Future you will thank you.
+
+threshold: 0.70
+
+items:
+  - id: g1
+    type: factual
+    question: Is the Robotics Club free to join?
+    expect: answered
+    must_cite: [clubs/robotics]
+    must_mention: [free]
+    why: the lecture's hook; models invent a plausible fee (20 GEL) and cite a real page for it
+
+  - id: g2
+    type: factual
+    question: How many days ahead must a club book a room for an evening event?
+    expect: answered
+    must_cite: [regulations/room-booking]
+    must_mention: [five working days]
+    why: a rule with a number in it; numbers are where invented answers hurt most
+
+  - id: g3
+    type: reasoning
+    question: Can our club bring snacks to the Open Build Night in Lab B204?
+    expect: answered
+    must_cite: [regulations/club-policy]
+    must_mention: [not allowed]
+    why: the answer lives in the policy, not the event page; needs a second source
+
+  - id: g4
+    type: edge
+    question: when does the robtics club meet
+    expect: answered
+    must_cite: [clubs/robotics]
+    must_mention: [wednesday]
+    why: typo and no capitals; real users type like this
+
+  - id: g5
+    type: refusal
+    question: What is the Wi-Fi password for the library?
+    expect: refused
+    must_cite: []
+    must_mention: []
+    why: not in our sources; the archive mentions Wi-Fi, which tempts a confident wrong answer

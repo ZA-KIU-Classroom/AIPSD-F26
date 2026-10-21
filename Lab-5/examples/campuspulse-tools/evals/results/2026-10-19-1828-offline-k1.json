@@ -1,0 +1,71 @@
+{
+ "ts": "2026-10-20T00:28:40+00:00",
+ "mode": "offline",
+ "chat_model": "offline/extractive",
+ "embed_model": "offline/trigram-hash",
+ "k": 1,
+ "passed": 3,
+ "total": 5,
+ "pass_rate": 0.6,
+ "threshold": 0.7,
+ "items": [
+  {
+   "id": "g1",
+   "type": "factual",
+   "pass": true,
+   "why": [],
+   "status": "answered",
+   "answer": "Membership is free [1]. To join, come to any Wednesday meeting and add your name to the member list [1].",
+   "cited": [
+    "clubs/robotics"
+   ]
+  },
+  {
+   "id": "g2",
+   "type": "factual",
+   "pass": true,
+   "why": [],
+   "status": "answered",
+   "answer": "Rooms for events that start after 17:00 must be booked at least five working days in advance [1]. Rooms for daytime events must be booked at least two working days in advance [1].",
+   "cited": [
+    "regulations/room-booking"
+   ]
+  },
+  {
+   "id": "g3",
+   "type": "reasoning",
+   "pass": false,
+   "why": [
+    "did not cite regulations/club-policy",
+    "did not mention 'not allowed'"
+   ],
+   "status": "answered",
+   "answer": "Once a month the club runs an Open Build Night for anyone curious [1]. The next one is on Thursday 22 October 2026 at 18:00 in Lab B204 [1].",
+   "cited": [
+    "clubs/robotics"
+   ]
+  },
+  {
+   "id": "g4",
+   "type": "edge",
+   "pass": false,
+   "why": [
+    "expected answered, got refused (model: sources do not answer it)",
+    "did not cite clubs/robotics",
+    "did not mention 'wednesday'"
+   ],
+   "status": "refused",
+   "answer": "I can't answer that from CampusPulse's sources.",
+   "cited": []
+  },
+  {
+   "id": "g5",
+   "type": "refusal",
+   "pass": true,
+   "why": [],
+   "status": "refused",
+   "answer": "I can't answer that from CampusPulse's sources.",
+   "cited": []
+  }
+ ]
+}
