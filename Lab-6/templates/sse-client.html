@@ -1,0 +1,22 @@
+<!-- The smallest client that reads a POST stream of Server-Sent Events. Paste into your page.
+     EventSource only does GET, so we read the response body ourselves and split on blank lines. -->
+<script>
+async function streamChat(question, headers, onToken, onDone) {
+  const r = await fetch("/chat", { method: "POST", body: JSON.stringify({ question }),
+                                   headers: { ...headers, "content-type": "application/json" } });
+  const reader = r.body.getReader(), dec = new TextDecoder();
+  let buf = "", i;
+  while (true) {
+    const { value, done } = await reader.read();
+    if (done) break;
+    buf += dec.decode(value, { stream: true });
+    while ((i = buf.indexOf("\n\n")) >= 0) {                     // one event per blank line
+      const block = buf.slice(0, i); buf = buf.slice(i + 2);
+      const event = /^event: (.*)$/m.exec(block)[1];
+      const data = JSON.parse(/^data: (.*)$/m.exec(block)[1]);
+      if (event === "token") onToken(data.text);
+      if (event === "done") onDone(data);                         // ttft_ms, cost_usd, calls
+    }
+  }
+}
+</script>

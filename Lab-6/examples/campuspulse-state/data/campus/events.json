@@ -1,0 +1,7 @@
+[
+  {"id": "ev-201", "title": "Open Build Night", "club": "KIU Robotics Club", "start": "2026-10-22T18:00", "minutes": 180, "room": "B204", "capacity": 30, "seats_taken": 26, "status": "confirmed"},
+  {"id": "ev-202", "title": "Debate Society public showcase", "club": "KIU Debate Society", "start": "2026-10-27T18:30", "minutes": 120, "room": "A112", "capacity": 40, "seats_taken": 12, "status": "confirmed"},
+  {"id": "ev-203", "title": "Founders' talk: from class project to company", "club": "KIU Startup Society", "start": "2026-10-29T17:00", "minutes": 90, "room": "A112", "capacity": 40, "seats_taken": 31, "status": "confirmed"},
+  {"id": "ev-204", "title": "Autumn Hackathon kickoff", "club": "KIU Startup Society", "start": "2026-11-05T10:00", "minutes": 420, "room": "A015", "capacity": 20, "seats_taken": 20, "status": "confirmed"},
+  {"id": "ev-205", "title": "Photo walk: old Kutaisi", "club": "KIU Photography Club", "start": "2026-10-24T11:00", "minutes": 150, "room": "Main entrance", "capacity": 20, "seats_taken": 9, "status": "cancelled"}
+]

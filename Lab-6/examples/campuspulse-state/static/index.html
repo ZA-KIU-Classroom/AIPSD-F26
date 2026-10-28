@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CampusPulse</title>
+<style>
+  body { font: 16px/1.5 system-ui, sans-serif; max-width: 720px; margin: 32px auto; padding: 0 16px; color: #111; }
+  #log { border: 1px solid #ccc; border-radius: 10px; padding: 12px; min-height: 160px; white-space: pre-wrap; }
+  .me { color: #555; } .meta { color: #777; font-size: 13px; }
+  form { display: flex; gap: 8px; margin: 12px 0; } input[type=text] { flex: 1; padding: 8px; font-size: 16px; }
+  button { padding: 8px 14px; font-size: 15px; cursor: pointer; }
+  #status { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+<h1>CampusPulse</h1>
+<p class="meta">Signed in as <b id="who"></b> · session <code id="sess"></code> · <span id="mem">no memory</span>
+  · <button id="forget">Forget me</button></p>
+<div id="log"></div>
+<form id="ask"><input type="text" id="q" placeholder="What's on this week? · Remember that I like tech talks" autocomplete="off">
+  <button type="submit">Send</button><button type="button" id="mic">🎤 Hold to talk</button></form>
+<div id="status"></div>
+
+<script>
+// Identity and session are stand-ins until Week 12: a fixed student id and a per-tab session id.
+// Both travel as headers. The model never sees them.
+const student = "s123";
+const session = sessionStorage.sessionId || (sessionStorage.sessionId = crypto.randomUUID().slice(0, 8));
+const H = { "X-Student-Id": student, "X-Session-Id": session };
+who.textContent = student; sess.textContent = session;
+
+async function refreshMemory() {
+  const m = await (await fetch("/me/memory", { headers: H })).json();
+  mem.textContent = m.interests.length ? "remembers: " + m.interests.join(", ") : "no memory";
+}
+refreshMemory();
+
+forget.onclick = async () => {              // forgetting is a button, never a tool the model holds
+  const gone = await (await fetch("/me/memory", { method: "DELETE", headers: H })).json();
+  status.textContent = `Forgotten: ${gone.interests} interest(s), ${gone.turns} turn(s).`;
+  refreshMemory();
+};
+
+function line(cls, text) { const d = document.createElement("div"); d.className = cls; d.textContent = text; log.appendChild(d); return d; }
+
+// POST /chat streams Server-Sent Events. EventSource only does GET, so we read the body ourselves.
+async function chat(question) {
+  line("me", "you: " + question);
+  const out = line("", "");
+  const t0 = performance.now(); let first = null;
+  const r = await fetch("/chat", { method: "POST", headers: { ...H, "content-type": "application/json" },
+                                   body: JSON.stringify({ question }) });
+  const reader = r.body.getReader(); const dec = new TextDecoder(); let buf = "";
+  while (true) {
+    const { value, done } = await reader.read(); if (done) break;
+    buf += dec.decode(value, { stream: true });
+    let i;
+    while ((i = buf.indexOf("\n\n")) >= 0) {           // one event per blank line
+      const block = buf.slice(0, i); buf = buf.slice(i + 2);
+      const ev = /^event: (.*)$/m.exec(block)[1], data = JSON.parse(/^data: (.*)$/m.exec(block)[1]);
+      if (ev === "token") { if (first === null) first = performance.now() - t0; out.textContent += data.text; }
+      if (ev === "tool") line("meta", `tool ${data.tool}: ${data.ok ? "ok" : data.error}`);
+      if (ev === "done") { status.textContent = `first token ${Math.round(first)} ms · browser total ${Math.round(performance.now() - t0)} ms · server ttft ${data.ttft_ms} ms · $${data.cost_usd}`; refreshMemory(); }
+    }
+  }
+}
+ask.onsubmit = (e) => { e.preventDefault(); const v = q.value.trim(); if (v) { q.value = ""; chat(v); } };
+
+// Voice (Lab 6 stretch): record with the microphone, convert to 16 kHz mono WAV in the browser
+// (smaller than the raw recording, and every provider accepts wav), POST it, play the answer.
+let rec, chunks = [];
+mic.onmousedown = mic.ontouchstart = async () => {
+  const ms = await navigator.mediaDevices.getUserMedia({ audio: true });
+  rec = new MediaRecorder(ms); chunks = []; rec.ondataavailable = (e) => chunks.push(e.data);
+  rec.onstop = async () => {
+    ms.getTracks().forEach((t) => t.stop());
+    const wav = await toWav(new Blob(chunks));
+    status.textContent = `sending ${Math.round(wav.size / 1024)} KB of audio…`;
+    const fd = new FormData(); fd.append("clip", wav, "clip.wav");
+    const r = await (await fetch("/voice", { method: "POST", headers: H, body: fd })).json();
+    line("me", "you (voice): " + r.transcript); line("", r.answer);
+    new Audio("data:audio/wav;base64," + r.audio_wav_base64).play(); refreshMemory();
+  };
+  rec.start(); status.textContent = "recording… release to send";
+};
+mic.onmouseup = mic.ontouchend = () => rec && rec.state === "recording" && rec.stop();
+
+async function toWav(blob, rate = 16000) {
+  const ctx = new AudioContext(); const audio = await ctx.decodeAudioData(await blob.arrayBuffer());
+  const n = Math.ceil(audio.duration * rate), off = new OfflineAudioContext(1, n, rate);
+  const src = off.createBufferSource(); src.buffer = audio; src.connect(off.destination); src.start();
+  const pcm = (await off.startRendering()).getChannelData(0);
+  const buf = new ArrayBuffer(44 + pcm.length * 2), v = new DataView(buf);
+  const str = (o, s) => [...s].forEach((c, i) => v.setUint8(o + i, c.charCodeAt(0)));
+  str(0, "RIFF"); v.setUint32(4, 36 + pcm.length * 2, true); str(8, "WAVE"); str(12, "fmt ");
+  v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true); v.setUint32(24, rate, true);
+  v.setUint32(28, rate * 2, true); v.setUint16(32, 2, true); v.setUint16(34, 16, true); str(36, "data");
+  v.setUint32(40, pcm.length * 2, true);
+  pcm.forEach((s, i) => v.setInt16(44 + i * 2, Math.max(-1, Math.min(1, s)) * 0x7fff, true));
+  return new Blob([buf], { type: "audio/wav" });
+}
+</script>
+</body>
+</html>

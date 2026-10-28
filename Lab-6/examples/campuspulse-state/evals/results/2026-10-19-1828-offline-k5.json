@@ -1,0 +1,72 @@
+{
+ "ts": "2026-10-20T00:28:39+00:00",
+ "mode": "offline",
+ "chat_model": "offline/extractive",
+ "embed_model": "offline/trigram-hash",
+ "k": 5,
+ "passed": 4,
+ "total": 5,
+ "pass_rate": 0.8,
+ "threshold": 0.7,
+ "items": [
+  {
+   "id": "g1",
+   "type": "factual",
+   "pass": true,
+   "why": [],
+   "status": "answered",
+   "answer": "Membership is free [1]. To join, come to any Wednesday meeting and add your name to the member list [1].",
+   "cited": [
+    "clubs/robotics"
+   ]
+  },
+  {
+   "id": "g2",
+   "type": "factual",
+   "pass": true,
+   "why": [],
+   "status": "answered",
+   "answer": "Rooms for events that start after 17:00 must be booked at least five working days in advance [1]. Rooms for daytime events must be booked at least two working days in advance [1]. All teaching rooms and labs close at 22:00 on weekdays [2]. Events must end and the room must be cleared by 21:45 [2].",
+   "cited": [
+    "regulations/room-booking",
+    "regulations/room-booking"
+   ]
+  },
+  {
+   "id": "g3",
+   "type": "reasoning",
+   "pass": false,
+   "why": [
+    "did not cite regulations/club-policy",
+    "did not mention 'not allowed'"
+   ],
+   "status": "answered",
+   "answer": "Once a month the club runs an Open Build Night for anyone curious [1]. The next one is on Thursday 22 October 2026 at 18:00 in Lab B204 [1]. The Robotics Club's September Open Build Night drew 27 students to Lab B204, close to the room's limit [2]. Teams built line-following robots from starter kits in about ninety minutes [2].",
+   "cited": [
+    "clubs/robotics",
+    "archive/open-build-night-september"
+   ]
+  },
+  {
+   "id": "g4",
+   "type": "edge",
+   "pass": true,
+   "why": [],
+   "status": "answered",
+   "answer": "The club meets every Wednesday at 18:00 in Lab B204 [3]. Meetings run for about two hours [3]. The club meets every second Saturday at 11:00, starting from the main entrance [4]. Most meetings are photo walks of two to three hours, so wear comfortable shoes [4].",
+   "cited": [
+    "clubs/robotics",
+    "clubs/photography"
+   ]
+  },
+  {
+   "id": "g5",
+   "type": "refusal",
+   "pass": true,
+   "why": [],
+   "status": "refused",
+   "answer": "I can't answer that from CampusPulse's sources.",
+   "cited": []
+  }
+ ]
+}

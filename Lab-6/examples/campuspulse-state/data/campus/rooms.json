@@ -1,0 +1,5 @@
+{
+  "A015": {"capacity": 20, "kind": "seminar room"},
+  "A112": {"capacity": 40, "kind": "lecture room"},
+  "B204": {"capacity": 30, "kind": "lab with soldering stations"}
+}
