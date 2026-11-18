@@ -1,0 +1,45 @@
+# HW2 tool golden set · make_calendar_file · owner: nino-k (example student)
+# Runs in CI through tests/test_tool_golden.py. No model, no key.
+# expect: ok (with result_has) or refused (with error_has). caller: null = not signed in.
+tool_owner: nino-k
+cases:
+  - id: c1
+    type: normal
+    why: the everyday case, a confirmed event
+    tool: make_calendar_file
+    caller: null
+    arguments: {event_id: ev-201}
+    expect: ok
+    result_has: {filename: ev-201.ics}
+  - id: c2
+    type: normal
+    why: works for a signed-in student too; the tool never needs to know who asks
+    tool: make_calendar_file
+    caller: s123
+    arguments: {event_id: ev-203}
+    expect: ok
+    result_has: {filename: ev-203.ics}
+  - id: c3
+    type: normal
+    why: a cancelled event gets no file, and the message tells the model not to offer one
+    tool: make_calendar_file
+    caller: null
+    arguments: {event_id: ev-205}
+    expect: refused
+    error_has: [cancelled]
+  - id: c4
+    type: bad-input
+    why: an event id in the wrong shape never reaches the lookup
+    tool: make_calendar_file
+    caller: null
+    arguments: {event_id: "Open Build Night"}
+    expect: refused
+    error_has: [invalid arguments, event_id]
+  - id: c5
+    type: adversarial
+    why: a path-traversal string in the id; the pattern stops it before any file is named
+    tool: make_calendar_file
+    caller: null
+    arguments: {event_id: "../../.env"}
+    expect: refused
+    error_has: [invalid arguments]
