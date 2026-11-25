@@ -1,0 +1,12 @@
+[
+  {"id": "ev-201", "title": "Open Build Night", "club": "KIU Robotics Club", "start": "2026-10-22T18:00", "minutes": 180, "room": "B204", "capacity": 30, "seats_taken": 26, "status": "confirmed", "tags": ["tech talks", "robotics"]},
+  {"id": "ev-202", "title": "Debate Society public showcase", "club": "KIU Debate Society", "start": "2026-10-27T18:30", "minutes": 120, "room": "A112", "capacity": 40, "seats_taken": 12, "status": "confirmed", "tags": ["debate"]},
+  {"id": "ev-203", "title": "Founders' talk: from class project to company", "club": "KIU Startup Society", "start": "2026-10-29T17:00", "minutes": 90, "room": "A112", "capacity": 40, "seats_taken": 31, "status": "confirmed", "tags": ["tech talks", "startups"]},
+  {"id": "ev-204", "title": "Autumn Hackathon kickoff", "club": "KIU Startup Society", "start": "2026-11-05T10:00", "minutes": 420, "room": "A015", "capacity": 20, "seats_taken": 20, "status": "confirmed", "tags": ["hackathon", "free food"]},
+  {"id": "ev-205", "title": "Photo walk: old Kutaisi", "club": "KIU Photography Club", "start": "2026-10-24T11:00", "minutes": 150, "room": "Main entrance", "capacity": 20, "seats_taken": 9, "status": "cancelled", "tags": ["photography"]},
+  {"id": "ev-206", "title": "Tech talk: shipping LLM apps on a student budget", "club": "KIU Startup Society", "start": "2026-11-19T18:00", "minutes": 90, "room": "A112", "capacity": 40, "seats_taken": 31, "status": "confirmed", "tags": ["tech talks", "free food"]},
+  {"id": "ev-207", "title": "Robotics demo night", "club": "KIU Robotics Club", "start": "2026-11-20T17:00", "minutes": 120, "room": "B204", "capacity": 30, "seats_taken": 12, "status": "confirmed", "tags": ["tech talks", "robotics"]},
+  {"id": "ev-208", "title": "Chess Open, round one", "club": "KIU Chess Club", "start": "2026-11-21T11:00", "minutes": 240, "room": "A112", "capacity": 40, "seats_taken": 18, "status": "confirmed", "tags": ["chess"]},
+  {"id": "ev-209", "title": "Volunteering fair, khachapuri provided", "club": "KIU Volunteering Club", "start": "2026-11-23T15:00", "minutes": 120, "room": "Main hall", "capacity": 80, "seats_taken": 22, "status": "confirmed", "tags": ["free food", "volunteering"]},
+  {"id": "ev-210", "title": "Tech talk: agents in production", "club": "KIU Startup Society", "start": "2026-11-24T18:30", "minutes": 90, "room": "A015", "capacity": 20, "seats_taken": 20, "status": "confirmed", "tags": ["tech talks"]}
+]

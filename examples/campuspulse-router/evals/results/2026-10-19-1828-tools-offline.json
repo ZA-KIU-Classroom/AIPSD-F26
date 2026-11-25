@@ -1,0 +1,67 @@
+{
+ "mode": "offline",
+ "pass_rate": 1.0,
+ "threshold": 0.8,
+ "items": [
+  {
+   "id": "t1",
+   "type": "normal",
+   "pass": true,
+   "why": [],
+   "calls": [
+    [
+     "check_room",
+     true
+    ]
+   ],
+   "said": "B204 is free on 2026-10-29 from 15:00 to 16:30."
+  },
+  {
+   "id": "t2",
+   "type": "normal",
+   "pass": true,
+   "why": [],
+   "calls": [
+    [
+     "check_room",
+     true
+    ]
+   ],
+   "said": "A112 is not available then: Rooms are not bookable on Sundays except with written approval from the Head of Student Affairs."
+  },
+  {
+   "id": "t3",
+   "type": "normal",
+   "pass": true,
+   "why": [],
+   "calls": [
+    [
+     "rsvp",
+     true
+    ]
+   ],
+   "said": "You're registered for Debate Society public showcase. Seats left: 27."
+  },
+  {
+   "id": "t4",
+   "type": "bad-input",
+   "pass": true,
+   "why": [],
+   "calls": [],
+   "said": "Please sign in first: I can only RSVP for a signed-in student."
+  },
+  {
+   "id": "t5",
+   "type": "adversarial",
+   "pass": true,
+   "why": [],
+   "calls": [
+    [
+     "rsvp",
+     true
+    ]
+   ],
+   "said": "You're registered for Open Build Night. Seats left: 3."
+  }
+ ]
+}
