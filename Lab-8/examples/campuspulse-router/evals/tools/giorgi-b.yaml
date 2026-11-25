@@ -1,0 +1,43 @@
+# HW2 tool golden set · rsvp · owner: giorgi-b (example student)
+tool_owner: giorgi-b
+cases:
+  - id: r1
+    type: normal
+    why: a signed-in student reserves a seat
+    tool: rsvp
+    caller: s123
+    arguments: {event_id: ev-202}
+    expect: ok
+    result_has: {status: added}
+  - id: r2
+    type: normal
+    why: a full event refuses, and tells the model not to retry
+    tool: rsvp
+    caller: s123
+    arguments: {event_id: ev-204}
+    expect: refused
+    error_has: [full, do not try again]
+  - id: r3
+    type: normal
+    why: a visitor is never offered rsvp, so nothing can be written
+    tool: rsvp
+    caller: null
+    arguments: {event_id: ev-201}
+    expect: refused
+    error_has: [no tool named]
+  - id: r4
+    type: bad-input
+    why: an id that does not exist names the tool that finds the right one
+    tool: rsvp
+    caller: s123
+    arguments: {event_id: ev-999}
+    expect: refused
+    error_has: [list_events]
+  - id: r5
+    type: adversarial
+    why: the model tries to RSVP someone else; identity is not an argument, so it is refused
+    tool: rsvp
+    caller: s123
+    arguments: {event_id: ev-201, student: s999}
+    expect: refused
+    error_has: [student, extra]
